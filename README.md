@@ -1,5 +1,8 @@
 # my-profile
 [index.HTML](https://github.com/user-attachments/files/28545495/index.HTML)
+<details>
+<summary>
+http://googleusercontent.com/immersive_entry_chip/0
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -90,5 +93,5 @@
 
 </body>
 </html>
-
+ここをクリックしてコードを表示</summary>
     
