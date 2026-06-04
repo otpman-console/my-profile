@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信州七二会おやき - 公式オンラインショップ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================
+           全体・ベースの設定（立体感のベース）
+        ======================================================== */
+        :root {
+            --primary-color: #1e3d2f; /* 深い笹の緑 */
+            --accent-color: #d4af37;  /* 上品な金色 */
+            --text-color: #2b2b2b;    /* 墨色 */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            /* 💡 立体感の工夫：単色ではなく、うっすらと和紙の陰影を感じるグラデーション背景 */
+            background: radial-gradient(circle at 50% 50%, #fefcf7 0%, #f9f5e8 100%);
+            color: var(--text-color);
+            font-family: "Noto Serif JP", serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 共通の見出し */
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            letter-spacing: 0.1em;
+            /* 文字にわずかな影をつけて立体的に */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+        }
+
+        /* ========================================================
+           ① ヘッダー＆ナビゲーション（奥に吸い込まれる立体グラデーション）
+        ======================================================== */
+        header {
+            position: relative;
+            color: #ffffff;
+            text-align: center;
+            /* 💡 立体感の工夫：中央がほんのり明るく、奥に引き込まれるような3層の深緑グラデーション */
+            background: radial-gradient(circle at 50% 30%, #254b3a 0%, #1a3529 70%, #11221a 100%);
+            padding: 1rem 1rem 8rem;
+            /* ヘッダー自体に下方向への強い影をつけて、下のセクションとの境界に高低差を出す */
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--accent-color);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            padding: 0.3rem 1.5rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+            background-color: rgba(30, 61, 47, 0.4); /* バッジの背景を透かせて立体的に */
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4); /* 文字の後ろにしっかり影を落とす */
+        }
+
+        header .lead {
+            font-size: 1.15rem;
+            max-width: 650px;
+            margin: 0 auto 3.5rem;
+            opacity: 0.9;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        /* 注文ボタン（より立体的な3D風デザイン） */
+        .btn-buy {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            /* 💡 立体感の工夫：下側に濃い金色のフチ（ボタンの厚み）を作り、リアルな立体ボタンに */
+            border-bottom: 4px solid #b3922e;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .btn-buy:hover {
+            background-color: #f1d36e;
+            transform: translateY(2px); /* 💡 クリックした時に沈み込むようなリアルな動き */
+            border-bottom: 2px solid #b3922e;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* ========================================================
+           ② こだわりセクション（ふわりと浮き出る白い漆喰風ボックス）
+        ======================================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 6rem 1.5rem;
+        }
+
+        .commitment-row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+        .commitment-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        /* 💡 立体感の工夫：写真の枠に多重の影と細い白フチをつけて額縁のように見せる */
+        .commitment-img-wrapper {
+            flex: 1;
+            height: 350px;
+            background-color: #e6dfd3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7d7568;
+            border: 6px solid #ffffff; /* 白い高級感あるフチ */
+            box-shadow: 0 15px 35px rgba(30, 61, 47, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        /* 💡 立体感の工夫：文字側にも薄い白い座布団（ボックス）を敷いて影を落とす */
+        .commitment-text-wrapper {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(30, 61, 47, 0.04);
+            border: 1px solid rgba(230, 223, 211, 0.5);
+        }
+
+        .commitment-text-wrapper h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .commitment-text-wrapper p {
+            font-size: 1.05rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* ========================================================
+           ③ 自慢の具材（少し沈み込んだような背景と浮き出るカード）
+        ======================================================== */
+        /* 💡 立体感の工夫：このセクションだけ背景を一段暗く（沈み込ませる）することで、全体のメリハリを出します */
+        .bg-dark-section {
+            background: linear-gradient(180deg, #f0e7d3 0%, #e6dbbf 100%);
+            box-shadow: inset 0 20px 30px rgba(0,0,0,0.03), inset 0 -20px 30px rgba(0,0,0,0.03);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* 💡 立体感の工夫：ホバーした時に影が強く・大きくなり、上にせり出すアニメーション */
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+            text-align: center;
+            padding-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 61, 47, 0.15); /* マウスを乗せると影が濃くなる */
+        }
+
+        .product-img {
+            background-color: #e6dfd3;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7d7568;
+            border-bottom: 1px solid #e6dfd3;
+        }
+
+        .product-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 2rem 1rem 1rem;
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
+            padding: 0 1.5rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        /* ========================================================
+           ④ よくあるご質問（重なり合う上品なアコーディオン）
+        ======================================================== */
+        .faq-wrapper {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        /* 💡 立体感の工夫：線の区切りではなく、1つ1つの質問を立体的な白いパネルにする */
+        .faq-item {
+            background-color: #ffffff;
+            border: 1px solid rgba(230, 223, 211, 0.7);
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            transition: box-shadow 0.3s;
+        }
+        .faq-item:hover {
+            box-shadow: 0 6px 20px rgba(30, 61, 47, 0.05);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            padding: 1.8rem 1.5rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::before {
+            content: "Q.";
+            color: var(--accent-color);
+            margin-right: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            color: #999;
+            transition: transform 0.3s;
+            font-weight: 300;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.8rem 2.8rem;
+            font-size: 1rem;
+            color: #444;
+            display: flex;
+            line-height: 1.9;
+            border-top: 1px solid #fcfaf2; /* 内側にうっすら線を引いて境界をシャープに */
+        }
+
+        .faq-answer-content::before {
+            content: "A.";
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-left: -1.3rem;
+            margin-right: 0.5rem;
+        }
+
+        /* JavaScript連動用 */
+        .faq-item.active {
+            box-shadow: 0 10px 25px rgba(30, 61, 47, 0.08); /* 開いた時はより強く浮かび上がらせる */
+        }
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: var(--accent-color);
+        }
+
+        /* ========================================================
+           📱 スマホ対応
+        ======================================================== */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1rem 5rem;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+            }
+            .nav-menu {
+                gap: 1.5rem;
+            }
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header .lead {
+                font-size: 1rem;
+            }
+            .btn-buy {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            .commitment-row, .commitment-row:nth-child(even) {
+                flex-direction: column;
+                gap: 0rem; /* テキストボックスを少し重ねるために調整 */
+                margin-bottom: 4rem;
+            }
+            .commitment-img-wrapper {
+                width: 100%;
+                height: 220px;
+                z-index: 1;
+            }
+            .commitment-text-wrapper {
+                width: 90%;
+                margin: -2rem auto 0; /* 写真の下側に少し食い込ませる立体レイアウト */
+                z-index: 2;
+                position: relative;
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <div class="nav-logo">信州七二会おやき</div>
+            <ul class="nav-menu">
+                <li><a href="#commitment">こだわり</a></li>
+                <li><a href="#products">自慢の具材</a></li>
+                <li><a href="#faq">よくある質問</a></li>
+                <li><a href="https://thebase.in/" target="_blank">オンラインショップ</a></li>
+            </ul>
+        </nav>
+
+        <div class="hero-content">
+            <span class="badge">保存料・着色料・添加物不使用</span>
+            <h1>笹の香りと、素材の旨味。<br>古くから愛されてきた、郷土の『蒸しおやき』</h1>
+            <p class="lead">長野市七二会に伝わる、塩を使わず素材本来の味を引き出す伝統製法。笹の葉に包み、ふっくらもっちり蒸し上げた自慢の味をお届けします。</p>
+            <a href="https://thebase.in/" target="_blank" class="btn-buy">【ネット限定】お試しセットを注文する</a>
+        </div>
+    </header>
+
+    <section id="commitment" class="container">
+        <h2 class="section-title">七二会おやき、3つのこだわり</h2>
+        
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper">【ここにイメージ写真1】</div>
+            <div class="commitment-text-wrapper">
+                <h3>1. 伝統の「無塩焼き」</h3>
+                <p>一般的なおやきとは違い、生地に塩を使わずに焼き上げる伝統製法。地粉（小麦粉）本来のほのかな甘みと、具材の旨味が最大限に引き立ちます。体に優しい、素材そのものの味覚をお楽しみください。</p>
+            </div>
+        </div>
+
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper">【ここにイメージ写真2】</div>
+            <div class="commitment-text-wrapper">
+                <h3>2. 豊かな風味の「笹包み」</h3>
+                <p>おやきを本物の笹の葉で包んで仕上げます。一口かじれば、笹の爽やかで気品ある香りが鼻を抜け、信州七二会の豊かな自然と郷土の情景が目に浮かぶような、贅沢なひとときを演出します。</p>
+            </div>
+        </div>
+
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper">【ここにイメージ写真3】</div>
+            <div class="commitment-text-wrapper">
+                <h3>3. 安心安全の「添加物不使用」</h3>
+                <p>保存料、着色料、化学調味料はいっさい使用していません。七二会の自然の恵みと素材本来の味をそのまま冷凍で閉じ込めているため、小さなお子様からシニアの方まで安心してお召し上がりいただけます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="bg-dark-section">
+        <div class="container">
+            <h2 class="section-title">七二会が詰まった、自慢の具材</h2>
+            
+            <div class="grid-container">
+                <div class="product-card">
+                    <div class="product-img">【ここに野沢菜の写真】</div>
+                    <h3>特選 野沢菜（のざわな）</h3>
+                    <p>信州名物の野沢菜を贅沢に。シャキシャキの食感と程よい塩気が、無塩のもっちり皮と完璧に調和します。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img">【ここに粒あんの写真】</div>
+                    <h3>上品な甘さ つぶあん</h3>
+                    <p>じっくり炊き上げた優しい甘さ。笹の香りと合わさることで、まるで上品な高級和菓子のような余韻を楽しめます。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img">【ここに野菜の写真】</div>
+                    <h3>切り干し大根と地物野菜</h3>
+                    <p>出汁の旨味をたっぷり吸わせた切り干し大根。噛むたびにジュワッと口いっぱいに美味しさが広がります。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="container">
+        <h2 class="section-title">よくあるご質問</h2>
+        
+        <div class="faq-wrapper">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>賞味期限はどのくらいですか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        製造日より冷凍保存で約6ヶ月です。解凍後は添加物を使用していないため、当日中にお召し上がりください。
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>どのように温めれば美味しく食べられますか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        冷凍のまま電子レンジ（600W）で約1分〜1分半温めていただくと、蒸したてのもっちりとした食感がお楽しみいただけます。
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>ギフト用の包装やのし対応は可能ですか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        はい、可能です。決済を行うBASEのカート画面にて、のしの種類や名入れのご指定をいただけます。贈り物にもぜひご利用ください。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+
+</body>
+</html>
