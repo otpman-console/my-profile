@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくあるご質問・お問い合わせ | 信州七二会おやき</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ベーススタイル */
+        :root {
+            --primary-color: #1e3d2f;
+            --accent-color: #d4af37;
+            --text-color: #2b2b2b;
+        }
+        
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #fefcf7 0%, #f9f5e8 100%);
+            color: var(--text-color);
+            font-family: "Noto Serif JP", serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            color: #ffffff;
+            text-align: center;
+            background: radial-gradient(circle at 50% 30%, #254b3a 0%, #1a3529 70%, #11221a 100%);
+            padding: 1rem 1rem 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-logo { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.2em; color: var(--accent-color); text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .nav-logo a { color: inherit; text-decoration: none; }
+        .nav-menu { display: flex; list-style: none; margin: 0; padding: 0; gap: 2.5rem; }
+        .nav-menu a { color: #ffffff; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-menu a:hover { color: var(--accent-color); }
+
+        /* レイアウトコンテナ */
+        .container { max-width: 850px; margin: 0 auto; padding: 5rem 1.5rem; }
+        .section-title { text-align: center; color: var(--primary-color); font-size: 2.2rem; margin-top: 2rem; margin-bottom: 4rem; letter-spacing: 0.1em; }
+        .section-title::after { content: ''; display: block; width: 40px; height: 1px; background-color: var(--accent-color); margin: 15px auto 0; }
+
+        /* FAQスタイル */
+        .faq-list { margin-bottom: 6rem; }
+        .faq-item { background-color: #ffffff; border: 1px solid rgba(230, 223, 211, 0.7); margin-bottom: 1rem; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: box-shadow 0.3s; }
+        .faq-item:hover { box-shadow: 0 6px 20px rgba(30, 61, 47, 0.05); }
+        .faq-question { width: 100%; background: none; border: none; text-align: left; padding: 1.8rem 1.5rem; font-size: 1.15rem; font-weight: 700; color: var(--primary-color); font-family: inherit; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .faq-question::before { content: "Q."; color: var(--accent-color); margin-right: 0.8rem; font-size: 1.3rem; }
+        .faq-icon { font-size: 1.2rem; color: #999; transition: transform 0.3s; font-weight: 300; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .faq-answer-content { padding: 0 1.5rem 1.8rem 2.8rem; font-size: 1rem; color: #444; display: flex; line-height: 1.9; border-top: 1px solid #fcfaf2; white-space: pre-line; }
+        .faq-answer-content::before { content: "A."; color: var(--primary-color); font-weight: 700; margin-left: -1.3rem; margin-right: 0.5rem; }
+        .faq-item.active { box-shadow: 0 10px 25px rgba(30, 61, 47, 0.08); }
+        .faq-item.active .faq-answer { max-height: 1000px; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--accent-color); }
+
+        /* 同意チェックボックス・ボタンのスタイル */
+        .privacy-agreement {
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .privacy-agreement input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .privacy-link {
+            color: var(--primary-color);
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .contact-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 1.2rem 3rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 4px;
+            border-bottom: 3px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+        /* チェックが入っていない時（無効状態）のスタイル */
+        .contact-btn.disabled {
+            background-color: #cccccc !important;
+            border-bottom-color: #aaaaaa !important;
+            color: #888888 !important;
+            cursor: not-allowed;
+            pointer-events: none; /* クリックを完全に無効化 */
+            opacity: 0.7;
+        }
+
+        footer { text-align: center; padding: 4rem 1.5rem; color: #888; font-size: 0.9rem; border-top: 1px solid rgba(230, 223, 211, 0.5); }
+
+        /* タブレット・スマホ用の調整 */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1.5rem; }
+            .nav-menu { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+            .section-title { font-size: 1.8rem; margin-bottom: 2.5rem; }
+            .faq-list { margin-bottom: 4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <div class="nav-logo"><a href="index.html">信州七二会おやき</a></div>
+            <ul class="nav-menu">
+                <li><a href="index.html#commitment">こだわり</a></li>
+                <li><a href="index.html#products">自慢の具材</a></li>
+                <li><a href="faq.html" style="color: var(--accent-color);">よくある質問</a></li>
+                <li><a href="profile.html">会社概要</a></li>
+                <li><a href="https://thebase.in/" target="_blank">オンラインショップ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">よくあるご質問</h2>
+        
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>アレルギー物質は何が含まれていますか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">すべてのおやきの皮に「小麦」を使用しております。また、味付けに「大豆（味噌・醤油）」を使用しています。アレルギーの詳細について気になるメニューがございましたら、お気軽にお問い合わせください。</div>
+                </div>
+            </div>
+                
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>賞味期限はどのくらいですか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">製造日より冷凍保存で約6ヶ月です。解凍後は添加物を使用していないため、当日中にお召し上がりください。</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>どのように温めれば美味しく食べられますか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">冷凍のまま電子レンジ（600W）で約1分〜1分半温めていただくと、蒸したてのもっちりとした食感がお楽しみいただけます。
+                    また、蒸し器を使って5分〜6分蒸していただくと、店頭で購入した出来立ての状態でお楽しみいただけます。</div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>ギフト用の包装やのし対応は可能ですか？</span>
+                    <span class="faq-icon">＋</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">はい、可能です。決済を行うBASEのカート画面にて、のしの種類や名入れのご指定をいただけます。贈り物にもぜひご利用ください。</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="contact">お問い合わせ</h2>
+        <div style="text-align: center; margin: 4rem 0;">
+            <p style="margin-bottom: 2rem; color: #444;">商品に関するご質問や、大口注文のご相談などお気軽にお問い合わせください。</p>
+            
+            <div class="privacy-agreement">
+                <label>
+                    <input type="checkbox" id="privacy-check">
+                    <a href="https://basicinc.jp/privacy" target="_blank" class="privacy-link">フォーム運営会社の個人情報保護方針</a>に同意する
+                </label>
+            </div>
+
+            <a href="https://form.run/@otpman--zOG0zabxSIW4vVyHivDV" target="_blank" id="submit-btn" class="contact-btn disabled" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                ✉ お問い合わせフォームを開く（外部サイト）
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 信州七二会おやき All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // FAQの開閉スクリプト
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+
+        // プライバシーポリシー同意チェックの制御スクリプト
+        const privacyCheck = document.getElementById('privacy-check');
+        const submitBtn = document.getElementById('submit-btn');
+
+        privacyCheck.addEventListener('change', () => {
+            if (privacyCheck.checked) {
+                // チェックが入ったらボタンを有効化
+                submitBtn.classList.remove('disabled');
+            } else {
+                // チェックが外れたらボタンを無効化（グレーアウト）
+                submitBtn.classList.add('disabled');
+            }
+        });
+    </script>
+
+</body>
+</html>

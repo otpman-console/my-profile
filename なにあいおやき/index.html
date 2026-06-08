@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信州七二会おやき - 公式オンラインショップ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================
+           全体・ベースの設定
+        ======================================================== */
+        :root {
+            --primary-color: #1e3d2f; /* 深い笹の緑 */
+            --accent-color: #d4af37;  /* 上品な金色 */
+            --text-color: #2b2b2b;    /* 墨色 */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 50%, #fefcf7 0%, #f9f5e8 100%);
+            color: var(--text-color);
+            font-family: "Noto Serif JP", serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* box-sizingを一括適用してレイアウト崩れを予防 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 3.5rem;
+            letter-spacing: 0.1em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 1px;
+            background-color: var(--accent-color);
+            margin: 15px auto 0;
+        }
+
+        /* ========================================================
+           ① ヘッダー＆ナビゲーション（PC版基準）
+        ======================================================== */
+        header {
+            position: relative;
+            color: #ffffff;
+            background: radial-gradient(circle at 50% 30%, #254b3a 0%, #1a3529 70%, #11221a 100%);
+            padding: 1rem 1rem 6rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--accent-color);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-logo a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+            position: relative;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        .hamburger-btn {
+            display: none;
+        }
+
+        /* ヒーローコンテンツ（レイアウト調整） */
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: row-reverse; /* 右側にタイトル、左側に説明文を配置 */
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        /* 縦書きのタイトル設定 */
+        header h1 {
+            writing-mode: vertical-rl; /* 縦書き（右から左へ） */
+            text-combine-upright: digits 2; /* 数字2桁までを縦中横に（『』の向き調整用） */
+            font-size: 2.8rem;
+            line-height: 1.8;
+            margin: 0 0 0 3rem; /* 左側に余白を作る */
+            letter-spacing: 0.15em;
+            font-weight: 700;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            height: auto;
+            min-height: 350px; /* 縦書きの高さ確保 */
+        }
+
+        /* 説明文・ボタン側のコンテナ */
+        .hero-text-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+           align-items: center;
+            padding-top: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            padding: 0.5rem 3.5rem;
+            letter-spacing: 0.15em;
+            margin-bottom: 2rem;
+            background-color: rgba(30, 61, 47, 0.4);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.1);
+        }
+
+        header .lead {
+            font-size: 1.15rem;
+            margin: 0 0 2.5rem 0; /* 下の余白を少し調整 */
+            opacity: 0.9;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            line-height: 2;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            font-weight: bold;
+            text-decoration: none;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            border-bottom: 4px solid #b3922e;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 2.5rem; /* 画像との間隔を確保 */
+        }
+        .btn-buy:hover {
+            background-color: #f1d36e;
+            transform: translateY(2px);
+            border-bottom: 2px solid #b3922e;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* 購入ボタン下のおやき写真用スタイル（追加） */
+        .hero-img-box {
+            width: 100%;
+            max-width: 460px;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .hero-img-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        /* ========================================================
+           ② こだわりセクション
+        ======================================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 6rem 1.5rem;
+        }
+
+        .commitment-row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+        .commitment-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .commitment-img-wrapper {
+            flex: 1;
+            height: 350px;
+            background-color: #e6dfd3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7d7568;
+            border: 6px solid #ffffff;
+            box-shadow: 0 15px 35px rgba(30, 61, 47, 0.08), 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 2px;
+        }
+
+        .commitment-text-wrapper {
+            flex: 1;
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(30, 61, 47, 0.04);
+            border: 1px solid rgba(230, 223, 211, 0.5);
+        }
+
+        .commitment-text-wrapper h3 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .commitment-text-wrapper p {
+            font-size: 1.05rem;
+            color: #444;
+            text-align: justify;
+        }
+
+        /* ========================================================
+           ③ 自慢の具材
+        ======================================================== */
+        .bg-dark-section {
+            background: linear-gradient(180deg, #f0e7d3 0%, #e6dbbf 100%);
+            box-shadow: inset 0 20px 30px rgba(0,0,0,0.03), inset 0 -20px 30px rgba(0,0,0,0.03);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
+            text-align: center;
+            padding-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(30, 61, 47, 0.15);
+        }
+
+        .product-img {
+            background-color: #e6dfd3;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7d7568;
+            border-bottom: 1px solid #e6dfd3;
+        }
+
+        .product-card h3 {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin: 2rem 1rem 1rem;
+        }
+
+        .product-card p {
+            font-size: 0.95rem;
+            padding: 0 1.5rem;
+            color: #555;
+            text-align: justify;
+        }
+
+        .products-notice {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 4rem;
+            margin-bottom: 0;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+        }
+
+        /* ========================================================
+           フッター ＆ 店舗情報エリア（追加・調整）
+        ======================================================== */
+        footer {
+            background-color: var(--primary-color);
+            color: #e6dfd3;
+            text-align: center;
+            padding: 5rem 1.5rem 2rem;
+            border-top: 3px solid var(--accent-color);
+        }
+
+        .footer-info {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            padding: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        .footer-info h4 {
+            color: var(--accent-color);
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-info dl {
+            display: grid;
+            grid-template-columns: 7em 1fr;
+            row-gap: 1rem;
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .footer-info dt {
+            font-weight: bold;
+            color: var(--accent-color);
+            border-right: 1px solid rgba(212, 175, 55, 0.3);
+            padding-right: 0.5rem;
+        }
+
+        .footer-info dd {
+            margin: 0;
+            padding-left: 1rem;
+            color: #ffffff;
+        }
+
+        .footer-info dd a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-info dd a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            color: rgba(230, 223, 211, 0.6);
+            margin-top: 2rem;
+            border-top: 1px solid rgba(230, 223, 211, 0.1);
+            padding-top: 1.5rem;
+        }
+
+        /* ========================================================
+           📱 スマホ対応（768px以下）
+        ======================================================== */
+        @media (max-width: 768px) {
+            header { padding: 1rem 1rem 3rem; }
+            .nav-container { margin-bottom: 2rem; position: relative; }
+            
+            /* スマホでは縦書きだと崩れやすいため、通常の横書きに戻して見やすくします */
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+            }
+            header h1 { 
+                writing-mode: horizontal-tb; 
+                font-size: 1.6rem; 
+                margin: 0 0 1.5rem 0; 
+                min-height: auto;
+            }
+            .hero-text-side {
+                align-items: center;
+                text-align: center;
+            }
+            header .lead { font-size: 0.9rem; margin-bottom: 2rem; text-align: center; }
+            .btn-buy { padding: 0.8rem 1.5rem; font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+            /* スマホ時のおやき写真の微調整 */
+            .hero-img-box {
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            /* --- ハンバーガーメニューの切り替え設定 --- */
+            .hamburger-btn {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 30px;
+                height: 20px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0;
+                z-index: 1000;
+            }
+
+            .hamburger-btn span {
+                display: block;
+                width: 100%;
+                height: 2px;
+                background-color: var(--accent-color);
+                transition: all 0.3s ease;
+            }
+
+            .hamburger-btn.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .hamburger-btn.is-active span:nth-child(2) { opacity: 0; }
+            .hamburger-btn.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                gap: 0;
+                padding: 1rem 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                z-index: 999;
+            }
+
+            .nav-menu li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-menu a {
+                display: block;
+                width: 100%;
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .nav-menu.is-active {
+                display: flex;
+            }
+
+            /* --- こだわりセクション：コンパクト・被りなし設定 --- */
+            .commitment-row, 
+            .commitment-row:nth-child(even) { 
+                flex-direction: column; 
+                gap: 0rem; 
+                margin-bottom: 2.5rem; 
+            }
+            
+            .commitment-img-wrapper { 
+                width: 100%; 
+                height: 160px; 
+                margin-bottom: 0;
+                border-width: 3px;
+            }
+            
+            .commitment-text-wrapper { 
+                width: 100%; 
+                margin: 0; 
+                padding: 1rem; 
+                border-radius: 0 0 8px 8px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            }
+
+            .commitment-text-wrapper h3 {
+                font-size: 1.15rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .commitment-text-wrapper p {
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+            
+            .section-title { font-size: 1.5rem; margin-bottom: 1.8rem; }
+            .products-notice { font-size: 0.9rem; margin-top: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="nav-container">
+            <div class="nav-logo"><a href="index.html">信州七二会おやき</a></div>
+            
+            <button class="hamburger-btn" aria-label="メニューを開く">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu">
+                <li><a href="#commitment">こだわり</a></li>
+                <li><a href="#products">自慢の具材</a></li>
+                <li><a href="faq.html">よくある質問</a></li>
+                <li><a href="profile.html">会社概要</a></li>
+                <li><a href="https://admin.thebase.com/dashboard" target="_blank">オンラインショップ</a></li>
+            </ul>
+        </nav>
+
+        <!-- ヒーローレイアウト -->
+        <div class="hero-content">
+            <!-- 縦書きにするタイトル部分 -->
+            <h1>笹の香りと<br>素材の旨味<br>古くから愛されてきた<br>『蒸しおやき』</h1>
+
+            <!-- 説明文とボタンをまとめた左側のエリア -->
+            <div class="hero-text-side">
+                <span class="badge">保存料・着色料・添加物不使用</span>
+                <p class="lead">
+                    長野市西山地方に伝わる<br>ふくらし粉(ベーキングパウダー)を使わず<br>
+                    素材本来の味を引き出す製法。<br>
+                    笹の葉に包み、蒸し上げた具沢山な自慢の味をお届けします。
+                </p>
+                
+                <!-- 購入ボタン -->
+                <a href="https://admin.thebase.com/dashboard" target="_blank" class="btn-buy">【ネット限定】お試しセットを注文する</a>
+                
+                <!-- ボタンのすぐ下におやきの写真を綺麗に配置 -->
+                <div class="hero-img-box">
+                    <img src="a570dc815727adae21a56345b1940f3c_t.jpg" alt="信州七二会おやき お試しセット">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="commitment" class="container">
+        <h2 class="section-title">七二会おやき、3つのこだわり</h2>
+        
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper"><img src="a570dc815727adae21a56345b1940f3c_t.jpg" alt="おやき" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="commitment-text-wrapper">
+                <h3>1.職人の「手作り」</h3>
+                <p>七二会のおやきは、職人が一つひとつ丁寧に薄皮で包み込んでいます。<br>
+                    一口かじれば、口の中が具材でいっぱいになります。<br>
+                    最後の一口まで素材の旨味を贅沢に味わっていただける、大満足のボリュームです。</p>
+            </div>
+        </div>
+
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper"><img src="381c760b84af518c0ce2661219dcf00e_t.jpg" alt="笹" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="commitment-text-wrapper">
+                <h3>2. 豊かな風味の「笹包み」</h3>
+                <p>おやきを本物の笹の葉で包んで仕上げます。<br>食べる前から、笹の爽やかで気品ある香りが鼻を抜け<br>七二会の豊かな自然と郷土の情景が目に浮かぶような、贅沢なひとときを演出します。</p>
+            </div>
+        </div>
+
+        <div class="commitment-row">
+            <div class="commitment-img-wrapper"><img src="a0957f3e7c5bcdf628ef92986d9eff4d_t.jpg" alt="野沢菜" style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="commitment-text-wrapper">
+                <h3>3. 安心安全の「添加物不使用」</h3>
+                <p>保存料、着色料、化学調味料はいっさい使用していません。<br>自然の恵みと素材本来の味をそのまま冷凍で閉じ込めているため、小さなお子様からシニアの方まで安心してお召し上がりいただけます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="bg-dark-section">
+        <div class="container">
+            <h2 class="section-title">自然が詰まった自慢の具材</h2>
+            
+            <div class="grid-container">
+                <div class="product-card">
+                    <div class="product-img"><img src="501-y_1.jpg" alt="野沢菜" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>野沢菜（のざわな）</h3>
+                    <p>信州名物の野沢菜を贅沢に。<br>シャキシャキの食感と程よい塩気が、素朴な皮と完璧に調和します。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img"><img src="compressed_thumbnail_square_normal.jpg" alt="ミックス" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>ミックス</h3>
+                    <p>切り干し大根と野菜を油で炒めた逸品。<br>野菜のうまみと油を吸い込んだ、独特な食感の切り干し大根がクセになります。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img"><img src="4589968860056_2.webp" alt="あんこ" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>上品な甘さ あんこ</h3>
+                    <p>手作りでじっくり炊き上げた優しい甘さ。<br>笹の香りと合わさることで、まるで上品な和菓子のような余韻を楽しめます。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img"><img src="c_image1.jpg" alt="なす" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>なす(味噌炒め)</h3>
+                    <p>丸なすを「信州味噌」で炒めた大満足の逸品です。<br>噛むたびにジュワッと口いっぱいになすの美味しさと味噌の豊かな風味が広がります。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img"><img src="pumpkin.jpg" alt="かぼちゃ" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>かぼちゃ</h3>
+                    <p>素材の甘みを引き出した定番の味。<br>ねっとりした餡が素朴な皮につつまれて何個も食べてしまう、どこか懐かしくてやさしい味わいです。</p>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img"><img src="k-03_nira.jpg" alt="にら" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    <h3>にら</h3>
+                    <p>豊かな香りと濃厚な旨み。<br>刻んだたっぷりの生にらに、信州味噌を絡めて仕上げました。一口ごとに濃厚な旨みが口の中にガツンと広がります。</p>
+                </div>
+            </div>
+
+            <p class="products-notice">他にも季節ごとに旬の食材を取り揃えております。</p>
+            
+        </div>
+    </section>
+        <!-- ＝ 修正・追加したフッターセクション ＝ -->
+    <footer>
+        <div class="footer-info">
+            <h4>店舗情報</h4>
+            <dl>
+                <dt>会社名</dt>
+                <dd>有限会社信州七二会おやき</dd>
+                
+                <dt>所在地</dt>
+                <dd>〒381-3161 長野県長野市七二会己960<a href="https://maps.google.com/?q=長野県長野市七二会己960" class="map-link" target="_blank" rel="noopener noreferrer"><br>→ Googleマップで見る</a></dd>
+
+                
+                <dt>営業時間</dt>
+                <dd>9:00 ～ 16:00頃 ※なくなり次第終了</dd>
+                
+                <dt>定休日</dt>
+                <dd>火曜日</dd>
+                
+                <dt>電話番号</dt>
+                <dd><a href="tel:0262293557">026-229-3557</a></dd>
+            </dl>
+        </div>
+        <p class="copyright">&copy; 有限会社信州七二会おやき All Rights Reserved.</p>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const hamburgerBtn = document.querySelector('.hamburger-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        // ボタンクリックでメニューを開閉
+        hamburgerBtn.addEventListener('click', function () {
+            hamburgerBtn.classList.toggle('is-active');
+            navMenu.classList.toggle('is-active');
+        });
+
+        // スマホ時にメニュー内のリンクがタップされたら自動でメニューを閉じる設定
+        navLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                hamburgerBtn.classList.remove('is-active');
+                navMenu.classList.remove('is-active');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
